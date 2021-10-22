@@ -14,7 +14,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t cdci .
-      - docker tag sample:latest public.ecr.aws/j7w8t7s2/cdci:latest
+      - docker tag cdci:latest public.ecr.aws/j7w8t7s2/cdci:latest
   post_build:
     commands:
       - echo Build completed on `date`
