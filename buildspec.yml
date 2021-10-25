@@ -5,19 +5,19 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j7w8t7s2/cdci
-      - REPOSITORY_URI=public.ecr.aws/j7w8t7s2/cdci
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 511248277632.dkr.ecr.us-east-2.amazonaws.com
+      - REPOSITORY_URI=511248277632.dkr.ecr.us-east-2.amazonaws.com/pvt
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t cdci .
-      - docker tag cdci:latest public.ecr.aws/j7w8t7s2/cdci:latest
+      - docker build -t pvt .
+      - docker tag pvt:latest 511248277632.dkr.ecr.us-east-2.amazonaws.com/pvt:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push public.ecr.aws/j7w8t7s2/cdci:latest
+      - docker push 511248277632.dkr.ecr.us-east-2.amazonaws.com/pvt:latest
       - echo writing image definitions file...
